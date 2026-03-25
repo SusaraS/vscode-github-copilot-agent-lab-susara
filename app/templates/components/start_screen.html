@@ -1,25 +1,68 @@
 <div id="game-container">
 <div class="flex flex-col items-center justify-center min-h-full p-6 bg-cyber-dark">
-    <div class="text-center max-w-sm w-full">
-        <h1 class="text-5xl font-bold text-neon-cyan text-glow-cyan mb-2">Soc Ops</h1>
-        <p class="text-lg text-neon-soft mb-8">Social Bingo // Neon Ops</p>
+    <div class="split-layout max-w-2xl w-full">
 
-        <div class="neon-panel rounded-xl p-6 shadow-xl border border-neon-cyan mb-8">
-            <h2 class="font-semibold text-neon-cyan mb-3">How to play</h2>
-            <ul class="text-left text-neon-soft text-sm space-y-2">
-                <li>• Find people who match the questions</li>
-                <li>• Tap a square when you find a match</li>
-                <li>• Get 5 in a row to win!</li>
-            </ul>
+        <!-- Left panel: branding + how to play + CTA -->
+        <div class="split-panel animate-neon-pop">
+            <h1 class="text-5xl font-bold text-neon-cyan text-glow-cyan mb-2">Soc Ops</h1>
+            <p class="text-lg text-neon-soft mb-6">Social Bingo // Neon Ops</p>
+
+            <div class="neon-panel rounded-xl p-6 shadow-xl mb-6">
+                <h2 class="font-semibold text-neon-cyan mb-3">How to play</h2>
+                <ul class="text-left text-neon-soft text-sm space-y-2">
+                    <li>• Find people who match the questions</li>
+                    <li>• Tap a square when you find a match</li>
+                    <li>• Get 5 in a row to win!</li>
+                </ul>
+            </div>
+
+            <button
+                hx-post="/start"
+                hx-target="#game-container"
+                hx-swap="outerHTML"
+                class="w-full btn-neon text-neon-ink font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-150 hover:lift hover:glow-cyan active:square-active">
+                Start Game
+            </button>
         </div>
 
-        <button
-            hx-post="/start"
-            hx-target="#game-container"
-            hx-swap="outerHTML"
-            class="w-full btn-neon text-neon-ink font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-150 hover:lift hover:glow-cyan active:square-active">
-            Start Game
-        </button>
+        <!-- Right panel: static board teaser -->
+        <div class="split-panel animate-neon-pop-delay">
+            <div class="neon-panel rounded-xl p-4 shadow-xl">
+                <p class="text-xs text-neon-muted text-center mb-3 font-semibold">BOARD PREVIEW</p>
+                <div class="grid grid-cols-5 gap-1">
+                    <div class="teaser-cell teaser-cell-marked"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell"></div>
+
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell teaser-cell-marked"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell teaser-cell-marked"></div>
+                    <div class="teaser-cell"></div>
+
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell teaser-cell-free"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell"></div>
+
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell teaser-cell-marked"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell teaser-cell-marked"></div>
+                    <div class="teaser-cell"></div>
+
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell"></div>
+                    <div class="teaser-cell teaser-cell-marked"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </div>
