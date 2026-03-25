@@ -12,7 +12,7 @@ from app.models import GameState
 
 BASE_DIR = Path(__file__).resolve().parent
 
-app = FastAPI(title="Soc Ops - Social Bingo")
+app = FastAPI(title="Tech Life Bingo")
 app.add_middleware(SessionMiddleware, secret_key="soc-ops-secret-key")
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 
