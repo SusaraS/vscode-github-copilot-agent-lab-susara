@@ -38,6 +38,7 @@ body {
 .max-w-sm { max-width: 24rem; }
 .max-w-md { max-width: 28rem; }
 .max-w-xs { max-width: 20rem; }
+.max-w-2xl { max-width: 42rem; }
 
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
@@ -270,4 +271,54 @@ button:disabled {
 
 .animate-neon-pop {
     animation: neon-pop 220ms ease-out;
+}
+
+/* Staggered entry for split-layout right panel */
+.animate-neon-pop-delay {
+    animation: neon-pop 220ms ease-out 100ms both;
+}
+
+/* Split layout — stacked on mobile, side-by-side at ≥640 px */
+.split-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.split-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (min-width: 640px) {
+    .split-layout {
+        flex-direction: row;
+        align-items: center;
+        gap: 2.5rem;
+    }
+
+    .split-panel {
+        flex: 1 1 0%;
+    }
+}
+
+/* Board teaser cells (non-interactive preview grid) */
+.teaser-cell {
+    aspect-ratio: 1 / 1;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(0, 209, 255, 0.2);
+    background: rgba(7, 18, 40, 0.6);
+}
+
+.teaser-cell-marked {
+    background: linear-gradient(140deg, rgba(0, 209, 255, 0.28), rgba(13, 61, 90, 0.85));
+    border-color: rgba(0, 209, 255, 0.6);
+    box-shadow: 0 0 8px rgba(0, 209, 255, 0.22);
+}
+
+.teaser-cell-free {
+    background: linear-gradient(140deg, rgba(155, 255, 57, 0.22), rgba(7, 18, 40, 0.88));
+    border-color: rgba(155, 255, 57, 0.5);
+    box-shadow: 0 0 10px rgba(155, 255, 57, 0.18);
 }
