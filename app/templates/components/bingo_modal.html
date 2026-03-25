@@ -1,14 +1,14 @@
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-xl p-6 max-w-xs w-full text-center shadow-xl animate-[bounce_0.5s_ease-out]">
+<div class="fixed inset-0 cyber-overlay flex items-center justify-center p-4 z-50">
+    <div class="neon-panel rounded-xl p-6 max-w-xs w-full text-center shadow-xl animate-neon-pop border border-neon-pink">
         <div class="text-5xl mb-4">🎉</div>
-        <h2 class="text-3xl font-bold text-amber-500 mb-2">BINGO!</h2>
-        <p class="text-gray-600 mb-6">You completed a line!</p>
+        <h2 class="text-3xl font-bold text-neon-pink text-glow-pink mb-2">BINGO!</h2>
+        <p class="text-neon-soft mb-6">You completed a line!</p>
 
         <button
             hx-post="/dismiss-modal"
             hx-target="#game-container"
             hx-swap="outerHTML"
-            class="w-full bg-accent text-white font-semibold py-3 px-6 rounded-lg active:bg-accent-light transition-colors">
+            class="w-full btn-neon text-neon-ink font-semibold py-3 px-6 rounded-lg transition-all duration-150 hover:lift hover:glow-pink active:square-active">
             Keep Playing
         </button>
     </div>

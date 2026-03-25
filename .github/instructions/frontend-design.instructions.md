@@ -3,27 +3,30 @@ name: frontend-design
 description: Use this skill when the user asks to design/build web components, pages, or applications. Generates creative, polished code that avoids generic AI aesthetics.
 ---
 
-You tend to converge toward generic, "on distribution" outputs. In frontend design,this creates what users call the "AI slop" aesthetic. Avoid this: make creative,distinctive frontends that surprise and delight. 
+# Frontend Design Rules
 
-Focus on:
-- Typography: Choose fonts that are beautiful, unique, and interesting. Avoid generic fonts like Arial and Inter; opt instead for distinctive choices that elevate the frontend's aesthetics.
-- Color & Theme: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes. Draw from IDE themes and cultural aesthetics for inspiration.
-- Motion: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for Jinja2 templates. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions.
-- Backgrounds: Create atmosphere and depth rather than defaulting to solid colors. Layer CSS gradients, use geometric patterns, or add contextual effects that match the overall aesthetic.
+## Design Principles
+- Design with clear intent: one strong visual direction per screen.
+- Prioritize hierarchy: title, primary action, supporting content.
+- Make layouts responsive by default for mobile and desktop.
+- Match motion to meaning: use a few purposeful animations, not many small effects.
 
-Avoid generic AI-generated aesthetics:
-- Overused font families (Inter, Roboto, Arial, system fonts)
-- Clichéd color schemes (particularly purple gradients on white backgrounds)
-- Predictable layouts and component patterns
-- Cookie-cutter design that lacks context-specific character
+## Hard Constraints
+- No generic AI look: avoid cookie-cutter hero + cards + CTA patterns.
+- No purple gradients.
+- Avoid overused defaults: Inter, Roboto, Arial, and system-only font stacks.
+- Avoid low-contrast text and tiny tap targets.
+- Do not rely on flat single-color backgrounds when a richer visual layer is appropriate.
 
-Interpret creatively and make unexpected choices that feel genuinely designed for the context. Vary between light and dark themes, different fonts, different aesthetics. You still tend to converge on common choices (Space Grotesk, for example) across generations. Avoid this: it is critical that you think outside the box!
+## Style Direction
+- Use distinctive typography and consistent spacing rhythm.
+- Use CSS variables for theme colors and tokens.
+- Prefer bold accents with controlled neutral surfaces.
+- Use background depth (subtle gradients, patterns, or shapes) that fits the concept.
 
-**IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
+## Code Generation Guidance
+- Produce complete, runnable code for the requested files.
+- Keep changes scoped to requested files and existing project patterns.
+- For Jinja2 projects, prefer CSS-first solutions and minimal JS.
+- If adding styles, keep naming and structure consistent with the codebase.
 
-**Remember:** The agent is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
-
-**Tool restrictions:**
-- Never use the Simple Browser to open URLs. Always provide URLs as text instead of opening them.
-
-// Source: [Improving frontend design through Skills](https://www.claude.com/blog/improving-frontend-design-through-skills).

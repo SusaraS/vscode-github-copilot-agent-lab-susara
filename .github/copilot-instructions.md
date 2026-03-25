@@ -47,6 +47,22 @@ Key classes: `.flex`, `.grid`, `.grid-cols-5`, `.items-center`, `.justify-center
 
 Add new utilities to `app.css` following existing patterns.
 
+## Design Guide (Cyberpunk Neon)
+
+- **Visual direction**: dark futuristic base with neon cyan/pink/lime accents and high legibility.
+- **Theme tokens**: use CSS variables in `:root` (`--cyber-bg`, `--cyber-bg-soft`, `--neon-cyan`, `--neon-pink`, `--neon-lime`, `--text-soft`, `--text-muted`).
+- **Primary surfaces**: use `bg-cyber-dark`, `neon-panel`, and `neon-bar` for page/background/card/header structure.
+- **Interactive elements**: use `btn-neon` for primary CTAs and `chip-btn` for secondary controls.
+- **Bingo board states**:
+	- idle: `square-idle`
+	- marked: `square-marked`
+	- winning: `square-winning`
+	- free-space emphasis: `square-free`
+- **Hover/motion rules**: keep motion smooth and subtle with `hover:lift`, `hover:lift-sm`, `hover:glow-cyan`, `hover:glow-pink`, and low-motion entry (`animate-neon-pop`).
+- **Text emphasis**: use `text-neon-cyan`, `text-neon-pink`, `text-neon-soft`, and glow helpers (`text-glow-cyan`, `text-glow-pink`) for hierarchy.
+- **Accessibility guardrail**: preserve contrast and avoid heavy glow on dense text blocks.
+- **Do not**: add inline styles, import external CSS frameworks, or break HTMX swap roots (`#game-container`).
+
 ## Code Conventions
 
 - snake_case, type hints on all signatures, `Final` for constants
