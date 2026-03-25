@@ -1,12 +1,71 @@
-# Soc Ops
+# 🎯 Soc Ops — Social Bingo
 
-Social Bingo game for in-person mixers. Find people who match the questions and get 5 in a row!
+> **Break the ice, make connections, win at networking!**
+
+Soc Ops is an interactive social bingo game built for in-person mixers, team events, and conferences. Find people who match the prompts on your card, mark them off, and race to get 5 in a row!
 
 🎮 **[Play the Game](https://madebygps.github.io/vscode-github-copilot-agent-lab/)** • 📚 **[View Lab Guide](https://madebygps.github.io/vscode-github-copilot-agent-lab/docs/)**
 
 ---
 
+## ✨ Features
+
+- 🎲 **Randomized boards** — Every player gets a unique card arrangement
+- 💾 **Auto-save progress** — Your card persists across page reloads
+- 🏆 **Bingo detection** — Automatic win detection for rows, columns, and diagonals
+- 🎉 **Celebration modal** — Confetti-worthy victory screen
+- 📱 **Mobile-first** — Works great on phones at live events
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- [Python 3.13+](https://www.python.org/downloads/)
+- [uv](https://docs.astral.sh/uv/) package manager
+
+### Run Locally
+
+```bash
+uv sync
+uv run uvicorn app.main:app --reload --port 8000
+# Open http://localhost:8000
+```
+
+### Test
+
+```bash
+uv run pytest
+```
+
+### Lint
+
+```bash
+uv run ruff check .
+uv run ruff format .
+```
+
+---
+
+## 🎨 Customize Your Game
+
+Edit `app/data.py` to swap in your own icebreaker prompts:
+
+```python
+questions_list: list[str] = [
+    "has a pet",
+    "speaks more than 2 languages",
+    "your custom question here",
+    # ... 24+ questions for a full board
+]
+```
+
+---
+
 ## 📚 Lab Guide
+
+Follow the hands-on workshop to build this app step-by-step with GitHub Copilot agents.
 
 | Part | Title |
 |------|-------|
@@ -20,36 +79,48 @@ Social Bingo game for in-person mixers. Find people who match the questions and 
 
 ---
 
-## Prerequisites
+## 🛠️ Tech Stack
 
-- [Python 3.13](https://www.python.org/downloads/) or higher
-- [uv](https://docs.astral.sh/uv/) package manager
+| Layer | Technology |
+|-------|-----------|
+| Backend | [FastAPI](https://fastapi.tiangolo.com/) + [Jinja2](https://jinja.palletsprojects.com/) |
+| Frontend | [HTMX](https://htmx.org/) + Custom CSS utilities |
+| State | Server-side sessions with signed-cookie persistence |
+| Deployment | GitHub Pages via GitHub Actions |
 
-## Setup
+---
 
-```bash
-uv sync
+## 📁 Project Structure
+
+```
+app/
+├── templates/           # Jinja2 templates
+│   ├── base.html
+│   ├── home.html
+│   └── components/      # bingo_board, bingo_modal, game_screen, start_screen
+├── static/              # CSS & JS assets
+├── models.py            # Game state & data models
+├── game_logic.py        # Bingo detection & board generation
+├── game_service.py      # Session management
+├── data.py              # Question bank
+└── main.py              # FastAPI routes
+tests/
+├── test_api.py          # API endpoint tests
+└── test_game_logic.py   # Game logic unit tests
 ```
 
-## Run
+---
 
-```bash
-uv run uvicorn app.main:app --reload
+## 🚢 Deployment
+
+Pushes to `main` automatically deploy to GitHub Pages:
+
+```
+https://{username}.github.io/{repo-name}
 ```
 
-Then open http://localhost:8000 in your browser.
+---
 
-## Test
+## 📝 License
 
-```bash
-uv run pytest
-```
-
-## Lint
-
-```bash
-uv run ruff check .
-uv run ruff format .
-```
-
-Deploys automatically to GitHub Pages on push to `main`.
+[MIT](LICENSE) — use it for your next event!
