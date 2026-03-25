@@ -25,8 +25,8 @@ QUESTIONS: Final[list[str]] = [
     "Can name a VS Code extension they genuinely love",
     # 🔴 Bold — opinions, stories, and side projects (19–22)
     "Has a side project they can describe in 10 seconds — share it!",
-    "Can tell the story of the wildest bug they ever fixed",
-    "Has strong feelings about a framework or tool everyone else loves",
+    "Can tell the story of the most challenging or unusual bug they ever fixed",
+    "Has strong feelings about a popular framework or tool",
     "Has pair-programmed and has a story to tell about it",
     # 🃏 Wildcards — action-based fun squares (23–24)
     "Teach someone a keyboard shortcut they didn't already know",
