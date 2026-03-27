@@ -1,0 +1,25 @@
+<div class="w-full max-w-md mx-auto deck-card-wrap">
+    <div class="neon-panel rounded-xl p-5 text-center mb-4">
+        <div class="text-xs font-bold tracking-widest uppercase text-neon-pink mb-2">Card Deck Shuffle</div>
+        <h2 class="text-sm font-semibold text-neon-cyan mb-4">Every tap draws a random player prompt</h2>
+
+        <button
+            hx-post="/draw-card"
+            hx-target="#game-container"
+            hx-swap="outerHTML"
+            class="w-full btn-neon text-neon-ink font-semibold py-3 px-6 rounded-lg transition-all duration-150 hover:lift hover:glow-cyan active:square-active mb-4">
+            Draw Card
+        </button>
+
+        {% if session.current_card %}
+        <div class="deck-stage">
+            <div class="deck-current-card deck-flip-in rounded-lg p-4 text-left">
+                <div class="text-xs uppercase tracking-wide text-neon-muted mb-2">Current Card</div>
+                <p class="text-neon-soft font-semibold wrap-break-word hyphens-auto">{{ session.current_card }}</p>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-sm text-neon-muted">Tap Draw Card to reveal your first question.</p>
+        {% endif %}
+    </div>
+</div>

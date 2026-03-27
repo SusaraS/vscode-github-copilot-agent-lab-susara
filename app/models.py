@@ -10,6 +10,12 @@ class GameState(StrEnum):
     BINGO = "bingo"
 
 
+class GameMode(StrEnum):
+    CLASSIC = "classic"
+    SCAVENGER = "scavenger"
+    DECK = "deck"
+
+
 class BingoSquareData(BaseModel):
     """A single square on the bingo board."""
 

@@ -6,17 +6,36 @@ from app.models import BingoLine, BingoSquareData
 
 BOARD_SIZE = 5
 CENTER_INDEX = 12  # 5x5 grid, center is index 12 (row 2, col 2)
+CLASSIC_SQUARE_COUNT = BOARD_SIZE * BOARD_SIZE
+CLASSIC_QUESTION_COUNT = CLASSIC_SQUARE_COUNT - 1
 
 
 def generate_board() -> list[BingoSquareData]:
     """Generate a new 5x5 bingo board."""
-    questions = iter(random.sample(QUESTIONS, 24))
+    questions = iter(random.sample(QUESTIONS, CLASSIC_QUESTION_COUNT))
     return [
         BingoSquareData(id=i, text=FREE_SPACE, is_marked=True, is_free_space=True)
         if i == CENTER_INDEX
         else BingoSquareData(id=i, text=next(questions))
-        for i in range(BOARD_SIZE * BOARD_SIZE)
+        for i in range(CLASSIC_SQUARE_COUNT)
     ]
+
+
+def generate_scavenger_list() -> list[BingoSquareData]:
+    """Generate a scavenger checklist using the same question pool."""
+    questions = random.sample(QUESTIONS, len(QUESTIONS))
+    return [BingoSquareData(id=i, text=text) for i, text in enumerate(questions)]
+
+
+def generate_card_deck() -> list[str]:
+    """Generate a shuffled list of question cards."""
+    return random.sample(QUESTIONS, len(QUESTIONS))
+
+
+def draw_card(deck: list[str]) -> tuple[str, list[str]]:
+    """Draw one card from a deck. Re-shuffle when deck is empty."""
+    active_deck = deck or generate_card_deck()
+    return active_deck[0], active_deck[1:]
 
 
 def toggle_square(
@@ -52,7 +71,7 @@ def _get_winning_lines() -> tuple[BingoLine, ...]:
 
 def check_bingo(board: list[BingoSquareData]) -> BingoLine | None:
     """Check if there's a bingo and return the winning line."""
-    if len(board) < BOARD_SIZE * BOARD_SIZE:
+    if len(board) < CLASSIC_SQUARE_COUNT:
         return None
     return next(
         (
@@ -62,6 +81,11 @@ def check_bingo(board: list[BingoSquareData]) -> BingoLine | None:
         ),
         None,
     )
+
+
+def is_scavenger_complete(board: list[BingoSquareData]) -> bool:
+    """Scavenger mode is complete when every checklist item is marked."""
+    return len(board) > 0 and all(square.is_marked for square in board)
 
 
 def get_winning_square_ids(line: BingoLine | None) -> set[int]:

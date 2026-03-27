@@ -1,6 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
+from app.data import QUESTIONS
 from app.main import app
 
 
@@ -40,6 +41,24 @@ class TestStartGame:
         # Count the toggle buttons (squares with hx-post="/toggle/")
         assert response.text.count('hx-post="/toggle/') == 24  # 24 + 1 free space
 
+    def test_scavenger_mode_returns_checklist(self, client: TestClient) -> None:
+        client.get("/")
+        response = client.post("/start?mode=scavenger")
+        assert response.status_code == 200
+        assert "Scavenger progress" in response.text
+        assert "0/24" in response.text
+        assert "FREE SPACE" not in response.text
+        assert response.text.count('hx-post="/toggle/') == 24
+
+    def test_deck_mode_returns_draw_card_screen(self, client: TestClient) -> None:
+        client.get("/")
+        response = client.post("/start?mode=deck")
+
+        assert response.status_code == 200
+        assert "Card Deck Shuffle" in response.text
+        assert "Draw Card" in response.text
+        assert 'hx-post="/draw-card"' in response.text
+
 
 class TestToggleSquare:
     def test_toggle_marks_square(self, client: TestClient) -> None:
@@ -68,3 +87,34 @@ class TestDismissModal:
         response = client.post("/dismiss-modal")
         assert response.status_code == 200
         assert "FREE SPACE" in response.text
+
+
+class TestScavengerCheckboxInputs:
+    def test_scavenger_renders_real_checkbox_inputs(self, client: TestClient) -> None:
+        client.get("/")
+        response = client.post("/start?mode=scavenger")
+
+        assert response.status_code == 200
+        assert response.text.count('type="checkbox"') == 24
+
+    def test_toggling_scavenger_item_checks_checkbox(self, client: TestClient) -> None:
+        client.get("/")
+        client.post("/start?mode=scavenger")
+
+        response = client.post("/toggle/0")
+
+        assert response.status_code == 200
+        assert 'type="checkbox"' in response.text
+        assert 'type="checkbox" checked' in response.text
+
+
+class TestDeckMode:
+    def test_draw_card_reveals_question(self, client: TestClient) -> None:
+        client.get("/")
+        client.post("/start?mode=deck")
+
+        response = client.post("/draw-card")
+
+        assert response.status_code == 200
+        assert "Current Card" in response.text
+        assert any(question in response.text for question in QUESTIONS)

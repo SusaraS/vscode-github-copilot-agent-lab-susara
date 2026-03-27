@@ -8,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 
 from app.game_service import GameSession, get_session
-from app.models import GameState
+from app.models import GameMode, GameState
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -26,6 +26,14 @@ def _get_game_session(request: Request) -> GameSession:
     return get_session(request.session["session_id"])
 
 
+def _parse_game_mode(mode: str) -> GameMode:
+    """Parse mode from request input, defaulting to classic."""
+    try:
+        return GameMode(mode)
+    except ValueError:
+        return GameMode.CLASSIC
+
+
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request) -> Response:
     session = _get_game_session(request)
@@ -37,9 +45,9 @@ async def home(request: Request) -> Response:
 
 
 @app.post("/start", response_class=HTMLResponse)
-async def start_game(request: Request) -> Response:
+async def start_game(request: Request, mode: str = GameMode.CLASSIC) -> Response:
     session = _get_game_session(request)
-    session.start_game()
+    session.start_game(mode=_parse_game_mode(mode))
     return templates.TemplateResponse(
         request, "components/game_screen.html", {"session": session}
     )
@@ -49,6 +57,15 @@ async def start_game(request: Request) -> Response:
 async def toggle_square(request: Request, square_id: int) -> Response:
     session = _get_game_session(request)
     session.handle_square_click(square_id)
+    return templates.TemplateResponse(
+        request, "components/game_screen.html", {"session": session}
+    )
+
+
+@app.post("/draw-card", response_class=HTMLResponse)
+async def draw_card(request: Request) -> Response:
+    session = _get_game_session(request)
+    session.draw_card_for_deck_mode()
     return templates.TemplateResponse(
         request, "components/game_screen.html", {"session": session}
     )

@@ -1,0 +1,32 @@
+<div class="w-full max-w-md mx-auto">
+    <div class="hunt-progress p-3 mb-4 rounded-lg">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-semibold text-neon-cyan tracking-wide uppercase">Progress</span>
+            <span class="text-sm text-neon-soft">{{ session.checked_count }}/{{ session.total_checkable }}</span>
+        </div>
+        <progress
+            class="hunt-progress-meter w-full"
+            value="{{ session.checked_count }}"
+            max="{{ session.total_checkable }}"
+            aria-label="Scavenger progress: {{ session.checked_count }} of {{ session.total_checkable }}"></progress>
+    </div>
+
+    <div class="hunt-checklist">
+        {% for square in session.board %}
+        <button
+            hx-post="/toggle/{{ square.id }}"
+            hx-target="#game-container"
+            hx-swap="outerHTML"
+            class="hunt-item w-full text-left transition-all duration-150 hover:lift-sm active:square-active{% if square.is_marked %} hunt-item-checked{% endif %}"
+            aria-pressed="{{ 'true' if square.is_marked else 'false' }}"
+            aria-label="{{ square.text }}">
+            <input
+                type="checkbox" {% if square.is_marked %}checked{% endif %}
+                class="hunt-checkbox{% if square.is_marked %} hunt-checkbox-checked{% endif %}"
+                tabindex="-1"
+                aria-hidden="true" />
+            <span class="hunt-text wrap-break-word hyphens-auto">{{ square.text }}</span>
+        </button>
+        {% endfor %}
+    </div>
+</div>

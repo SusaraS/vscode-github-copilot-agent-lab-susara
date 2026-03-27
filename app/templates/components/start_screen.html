@@ -40,9 +40,36 @@
             </ol>
         </div>
 
+        <div class="neon-panel rounded-xl p-4 mb-6">
+            <div class="text-xs font-bold tracking-widest uppercase text-neon-cyan mb-3 text-center">Choose Mode</div>
+            <div class="grid gap-2">
+                <button
+                    hx-post="/start?mode=classic"
+                    hx-target="#game-container"
+                    hx-swap="outerHTML"
+                    class="w-full chip-btn text-neon-soft font-semibold py-3 px-4 rounded-lg transition-all duration-150 hover:lift-sm hover:glow-cyan active:square-active">
+                    Classic Bingo (5 in a row)
+                </button>
+                <button
+                    hx-post="/start?mode=scavenger"
+                    hx-target="#game-container"
+                    hx-swap="outerHTML"
+                    class="w-full chip-btn text-neon-soft font-semibold py-3 px-4 rounded-lg transition-all duration-150 hover:lift-sm hover:glow-pink active:square-active">
+                    Scavenger Hunt (check them all)
+                </button>
+                <button
+                    hx-post="/start?mode=deck"
+                    hx-target="#game-container"
+                    hx-swap="outerHTML"
+                    class="w-full chip-btn text-neon-soft font-semibold py-3 px-4 rounded-lg transition-all duration-150 hover:lift-sm hover:glow-cyan active:square-active">
+                    Card Deck Shuffle (draw random question)
+                </button>
+            </div>
+        </div>
+
         <!-- Primary CTA -->
         <button
-            hx-post="/start"
+            hx-post="/start?mode=classic"
             hx-target="#game-container"
             hx-swap="outerHTML"
             class="w-full btn-neon text-neon-ink font-semibold py-4 px-8 rounded-lg text-lg transition-all duration-150 hover:lift hover:glow-cyan active:square-active">

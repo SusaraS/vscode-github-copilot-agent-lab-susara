@@ -1,8 +1,8 @@
 <div class="fixed inset-0 cyber-overlay flex items-center justify-center p-4 z-50">
     <div class="neon-panel rounded-xl p-6 max-w-xs w-full text-center shadow-xl animate-neon-pop border border-neon-pink">
-        <div class="text-5xl mb-4">🎉</div>
-        <h2 class="text-3xl font-bold text-neon-pink text-glow-pink mb-2">BINGO!</h2>
-        <p class="text-neon-soft mb-6">You completed a line!</p>
+        <div class="text-5xl mb-4">{{ '🎯' if session.is_scavenger_mode else '🎉' }}</div>
+        <h2 class="text-3xl font-bold mb-2 {% if session.is_scavenger_mode %}text-neon-cyan text-glow-cyan{% else %}text-neon-pink text-glow-pink{% endif %}">{{ session.modal_title }}</h2>
+        <p class="text-neon-soft mb-6">{{ session.modal_message }}</p>
 
         <button
             hx-post="/dismiss-modal"

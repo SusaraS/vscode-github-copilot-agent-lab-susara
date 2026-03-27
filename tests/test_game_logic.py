@@ -2,8 +2,12 @@ from app.data import FREE_SPACE, QUESTIONS
 from app.game_logic import (
     CENTER_INDEX,
     check_bingo,
+    draw_card,
     generate_board,
+    generate_card_deck,
+    generate_scavenger_list,
     get_winning_square_ids,
+    is_scavenger_complete,
     toggle_square,
 )
 from app.models import BingoLine, BingoSquareData
@@ -132,3 +136,49 @@ class TestGetWinningSquareIds:
     def test_returns_square_ids(self) -> None:
         line = BingoLine(type="row", index=0, squares=[0, 1, 2, 3, 4])
         assert get_winning_square_ids(line) == {0, 1, 2, 3, 4}
+
+
+class TestScavengerLogic:
+    def test_scavenger_list_has_all_questions(self) -> None:
+        board = generate_scavenger_list()
+        assert len(board) == len(QUESTIONS)
+        texts = {square.text for square in board}
+        assert texts == set(QUESTIONS)
+
+    def test_scavenger_items_start_unmarked(self) -> None:
+        board = generate_scavenger_list()
+        assert all(not square.is_marked for square in board)
+
+    def test_scavenger_items_are_not_free_spaces(self) -> None:
+        board = generate_scavenger_list()
+        assert all(not square.is_free_space for square in board)
+
+    def test_scavenger_completion_requires_all_marked(self) -> None:
+        board = generate_scavenger_list()
+        assert is_scavenger_complete(board) is False
+
+        partially_marked = toggle_square(board, 0)
+        assert is_scavenger_complete(partially_marked) is False
+
+        completed = partially_marked
+        for square in board[1:]:
+            completed = toggle_square(completed, square.id)
+
+        assert is_scavenger_complete(completed) is True
+
+
+class TestDeckLogic:
+    def test_generate_card_deck_contains_all_questions(self) -> None:
+        deck = generate_card_deck()
+        assert len(deck) == len(QUESTIONS)
+        assert set(deck) == set(QUESTIONS)
+
+    def test_draw_card_consumes_from_existing_deck(self) -> None:
+        card, remaining = draw_card(["a", "b", "c"])
+        assert card == "a"
+        assert remaining == ["b", "c"]
+
+    def test_draw_card_reshuffles_when_empty(self) -> None:
+        card, remaining = draw_card([])
+        assert card in QUESTIONS
+        assert len(remaining) == len(QUESTIONS) - 1

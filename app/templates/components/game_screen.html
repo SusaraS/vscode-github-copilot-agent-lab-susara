@@ -15,19 +15,25 @@
 
     <!-- Instructions -->
     <p class="text-center text-neon-muted text-sm py-2 px-4">
-        Tap a square when you find someone who matches it.
+        {{ session.instruction_text }}
     </p>
 
     <!-- Bingo indicator -->
     {% if session.has_bingo %}
     <div class="neon-banner text-neon-ink text-center py-2 font-semibold text-sm">
-        🎉 BINGO! You got a line!
+        {{ '🎯 ' if session.is_scavenger_mode else '🎉 ' }}{{ session.completion_banner_text }}
     </div>
     {% endif %}
 
-    <!-- Board -->
+    <!-- Board / Checklist -->
     <div class="flex-1 flex items-center justify-center p-3">
+        {% if session.is_deck_mode %}
+        {% include "components/card_deck.html" %}
+        {% elif session.is_scavenger_mode %}
+        {% include "components/scavenger_list.html" %}
+        {% else %}
         {% include "components/bingo_board.html" %}
+        {% endif %}
     </div>
 </div>
 
